@@ -1,0 +1,260 @@
+@import '~antd/dist/antd.less';
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/* Main Layout */
+.layout-header {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: @header-height;
+    overflow: hidden;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 0 -3px 15px 1px @primary-7;
+}
+
+.layout-routes {
+    position: absolute;
+    top: @header-height;
+    bottom: @footer-height;
+    left: 0px;
+    right: 0px;
+    overflow: auto !important;
+}
+
+.layout-footer {
+    position: absolute;
+    bottom: 0px;
+    height: @footer-height;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    z-index: 10;
+    box-shadow: 0 3px 17px 1px @primary-7;
+}
+
+// .ant-modal-mask {
+//     background-color: @custom-overlay-background !important;
+// }
+
+.ant-card-head {
+    // border-bottom: 1px solid @border-color-base;
+}
+
+.ant-card-body {
+    // box-shadow: 15px 15px 30px -15px @primary-7;
+}
+
+// Fix row margins when gutters are used
+// .ant-row {
+//     margin-right: 0 !important;
+//     margin-left: 0 !important;
+//   }
+  
+//   .ant-col:first-child {
+//       padding-left: 0 !important;
+//   }
+  
+//   .ant-col:last-child {
+//     padding-right: 0 !important;
+//   }
+
+/* Drawer */
+.appDrawerMenu {
+    // Max SubMenu size for antd
+    ul.ant-menu.ant-menu-sub.ant-menu-vertical {
+        border-left: 0.5px solid @primary-color;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    // Left border instead of right for main vertical menus
+    .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+        border-left: 0.5px solid @primary-color;
+        border-right: none;
+    }
+
+    // Slightly lighter background for hover on menu items
+    .ant-menu-item:hover, .ant-menu-submenu:hover {
+        background: @primary-color;
+        color: @normal-color !important;
+        a {
+            color: @normal-color !important;
+        }
+    }
+}
+
+
+.ant-notification-notice.ant-notification-notice-closable {
+    border: 2px inset @primary-color;
+}
+
+.header-title, .header-icon {
+    font-size: 2.5em;
+    color: @primary-7;
+}
+
+
+.header {
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: @primary-color;
+
+    .header-title, .header-icon {
+        font-size: 2em;
+        color: @white;
+    }
+
+    .logout-icon {
+        color: @white;
+        transition: color 0.15s linear;
+    }
+    
+    .logout-icon:hover {
+        color: @error-color;
+        transition: color 0.15s linear;
+    }
+}
+
+.page-wrapper {
+    padding: 0 20px;
+    // height: 100%;
+
+    // Style for titles with PageWrappers
+    .ant-card-head-title {
+        color: @primary-color;
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+
+    .page-wrapper-title {
+        font-size: 35px;
+        text-align: center;
+        color: @primary-color;
+        font-weight: lighter;
+        padding: 0;
+        margin: 0;
+    }
+
+    .page-wrapper-loading {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: fade(#ccc, 35%);
+        
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9;
+    
+        .page-wrapper-loading-icon {
+            font-size: 10em;
+            color: @primary-color;
+        }
+    
+        .page-wrapper-loading-header {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: @primary-color;
+        }
+    }
+
+    .non-ideal-page {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        // background: @custom-overlay-background;
+        
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9;
+    
+        .non-ideal-icon {
+            font-size: 10em;
+            color: @primary-color;
+        }
+    
+        .non-ideal-header {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: @primary-color;
+        }
+    
+        .non-ideal-subheader {
+            color: white;
+            font-size: 1.4em;
+            font-weight: lighter;
+        }
+    }
+}
+
+.primary {
+    color: @primary-color;
+}
+
+.bold {
+    font-weight: bolder;
+}
+
+.lighter {
+    font-weight: lighter;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@header-height: 60px;
+@footer-height: 0px;
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
