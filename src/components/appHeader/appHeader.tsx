@@ -1,15 +1,24 @@
 import * as React from 'react';
 
-import { Col, Row } from 'antd';
-import { MenuUnfoldOutlined, RobotOutlined } from '@ant-design/icons';
+import { Col, Row, Tooltip } from 'antd';
+import { MenuFoldOutlined, MenuUnfoldOutlined, RobotOutlined } from '@ant-design/icons';
+import { useAppDispatch, useAppSelector } from '../../types/thunk';
 
 import { NavLink } from 'react-router-dom';
+import { changeDrawerState } from '../../store/modules/appDrawerModule';
 
 interface AppHeaderProps {
 
 }
 
 export const AppHeader: React.FC<AppHeaderProps> = (props) => {
+    const dispatch = useAppDispatch();
+    const isDrawerOpen = useAppSelector((state) => state.drawer.isDrawerOpen);
+
+    const handleDrawerClicked = (toOpen: boolean): void => {
+        dispatch(changeDrawerState(toOpen));
+    };
+
     return (
         <Row
             className="header"
@@ -22,10 +31,23 @@ export const AppHeader: React.FC<AppHeaderProps> = (props) => {
                     justify="start"
                 >
                     <div>
-                        <MenuUnfoldOutlined 
-                            className="header-icon"
-                            style={{ fontSize: 20, marginLeft: 16, marginRight: 16, cursor: 'pointer' }}
-                        />
+                        {isDrawerOpen === true
+                            ?
+                            <MenuFoldOutlined
+                                className="header-icon"
+                                style={{ fontSize: 20, marginLeft: 16, marginRight: 16, cursor: 'pointer' }}
+                                onClick={() => handleDrawerClicked(false)}
+                            />
+                            :
+                            <Tooltip title="Open Menu" placement="bottomRight">
+                                <MenuUnfoldOutlined
+                                    className="header-icon"
+                                    style={{ fontSize: 20, marginLeft: 16, marginRight: 16, cursor: 'pointer' }}
+                                    onClick={() => handleDrawerClicked(true)}
+                                />
+                            </Tooltip>
+                                    
+                        }
                     </div>
                     
                     <NavLink

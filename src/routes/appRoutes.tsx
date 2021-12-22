@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { HomePage } from './homePage';
 
@@ -8,8 +8,14 @@ export const AppRoutes: React.FC = (props) => {
     return (
         <Routes>
             <Route
-                path=""
+                path={''}
                 element={<HomePage />}
+            />
+
+            <Route
+                path="/home"
+                element={<HomePage />}
+
             />
         </Routes>
     );

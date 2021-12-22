@@ -1,3 +1,5 @@
+import './pageWrapper.less';
+
 import * as React from 'react';
 
 import { Button, Card, Col, Divider, Row } from 'antd';
@@ -149,8 +151,8 @@ export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
             justify="center"
         >
             <Col
-                xxl={14}
-                xl={16}
+                xxl={16}
+                xl={18}
                 lg={18}
                 md={20}
                 sm={22}
