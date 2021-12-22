@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import { Button, ButtonProps, Col, ColProps, Row } from 'antd';
+import { GroupOutlined, OrderedListOutlined } from '@ant-design/icons';
 
 import { Fade } from 'react-awesome-reveal';
 import { PageWrapper } from '../../components/pageWrapper';
-import { UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 export const HomePage: React.FC = (props) => {
@@ -37,7 +37,8 @@ export const HomePage: React.FC = (props) => {
     
     return (
         <PageWrapper
-            pageTitle="Home"
+            showLogo={true}
+            pageTitle="Let's Go"
         >
             <Row
                 align="top"
@@ -50,7 +51,7 @@ export const HomePage: React.FC = (props) => {
                     <Fade direction="left" duration={300} triggerOnce={true}>
                         <Button
                             {...homeButtonProps}
-                            onClick={() => navigate('/page1')}
+                            onClick={() => navigate('/queue-info')}
                         >
                             <Row
                                 align="middle"
@@ -59,13 +60,13 @@ export const HomePage: React.FC = (props) => {
                                 <Col 
                                     {...iconColProps}
                                 >
-                                    <UserOutlined />
+                                    <OrderedListOutlined style={{ fontSize: '2em' }} />
                                 </Col>
 
                                 <Col 
                                     {...textColProps}
                                 >
-                                    Page 1
+                                    Queue Info
                                 </Col>
                             </Row>
                             
@@ -73,7 +74,34 @@ export const HomePage: React.FC = (props) => {
                     </Fade>
                 </Col> 
 
-                
+                <Col 
+                    style={{ marginTop: 20 }}
+                >
+                    <Fade direction="left" duration={300} triggerOnce={true}>
+                        <Button
+                            {...homeButtonProps}
+                            onClick={() => navigate('/overlay')}
+                        >
+                            <Row
+                                align="middle"
+                                justify="center"
+                            >
+                                <Col 
+                                    {...iconColProps}
+                                >
+                                    <GroupOutlined style={{ fontSize: '2em' }} />
+                                </Col>
+
+                                <Col 
+                                    {...textColProps}
+                                >
+                                    Overlay
+                                </Col>
+                            </Row>
+                            
+                        </Button>
+                    </Fade>
+                </Col> 
             </Row>
         </PageWrapper>
     );

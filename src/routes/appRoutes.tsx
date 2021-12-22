@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { HomePage } from './homePage';
+import { QueueInfoPage } from './queueInfoPage';
 
 export const AppRoutes: React.FC = (props) => {
     return (
@@ -16,6 +17,11 @@ export const AppRoutes: React.FC = (props) => {
                 path="/home"
                 element={<HomePage />}
 
+            />
+
+            <Route
+                path="/queue-info"
+                element={<QueueInfoPage />}
             />
         </Routes>
     );

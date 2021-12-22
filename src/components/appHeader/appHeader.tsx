@@ -1,3 +1,5 @@
+import './appHeader.less';
+
 import * as React from 'react';
 
 import { Col, Row, Tooltip } from 'antd';

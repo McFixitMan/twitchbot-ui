@@ -14,7 +14,7 @@ module.exports = {
                         modifyVars: {
                             ...getThemeVariables({
                                 dark: true,
-                                compact: true,
+                                compact: false,
                             }),
                             // '@primary-color': '#007d00',
                         },

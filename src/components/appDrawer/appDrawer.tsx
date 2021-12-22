@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { Drawer, Menu } from 'antd';
+import { HomeOutlined, OrderedListOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../types/thunk';
 
-import { HomeOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { changeDrawerState } from '../../store/modules/appDrawerModule';
 
@@ -38,19 +38,29 @@ export const AppDrawer: React.FC<AppDrawerProps> = (props) => {
                 mode="vertical"
                 selectable={false}
             >
-                <Menu.ItemGroup title="Pages"> 
-                    <Menu.Item key="home">
-                        <NavLink 
-                            to={''} 
-                            onClick={() => handleCloseDrawer()}
-                        >
-                            <span>
-                                <HomeOutlined style={{ fontSize: '1.2em' }} />
-                                <span>Home</span>
-                            </span>
-                        </NavLink>
-                    </Menu.Item> 
-                </Menu.ItemGroup>
+                <Menu.Item key="home">
+                    <NavLink 
+                        to={''} 
+                        onClick={() => handleCloseDrawer()}
+                    >
+                        <span>
+                            <HomeOutlined style={{ fontSize: '1.2em' }} />
+                            <span>Home</span>
+                        </span>
+                    </NavLink>
+                </Menu.Item> 
+
+                <Menu.Item key="queue-info">
+                    <NavLink 
+                        to={'/queue-info'} 
+                        onClick={() => handleCloseDrawer()}
+                    >
+                        <span>
+                            <OrderedListOutlined style={{ fontSize: '1.2em' }} />
+                            <span>Queue Info</span>
+                        </span>
+                    </NavLink>
+                </Menu.Item> 
             </Menu>
         </Drawer>
     );

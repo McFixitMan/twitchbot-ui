@@ -151,11 +151,11 @@ export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
             justify="center"
         >
             <Col
-                xxl={16}
-                xl={18}
-                lg={18}
-                md={20}
-                sm={22}
+                xxl={24}
+                xl={24}
+                lg={24}
+                md={24}
+                sm={24}
                 xs={24}
                 style={{ padding: 5 }}
             >
