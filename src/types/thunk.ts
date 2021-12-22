@@ -3,6 +3,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { AnyAction } from 'redux';
+import { ApiError } from '../utility/api';
 import { AxiosError } from 'axios';
 // import { ApiResult } from 'freedom-pas.shared/models/payloads/apiResult';
 import { RootState } from '../store/reducers';
@@ -10,7 +11,7 @@ import { RootState } from '../store/reducers';
 export interface ThunkAPIConfig {
     dispatch: AppDispatch;
     state: RootState;
-    rejectValue: AxiosError;
+    rejectValue: AxiosError<ApiError>;
 }
 
 export const createApiThunk = <Returned, ThunkArg = unknown, >(
@@ -25,7 +26,7 @@ export const createApiThunk = <Returned, ThunkArg = unknown, >(
                 return await thunk(arg, thunkAPI);
             } catch (err) {
                 // do some stuff here that happens on every error
-                return thunkAPI.rejectWithValue(err as AxiosError);
+                return thunkAPI.rejectWithValue(err as AxiosError<ApiError>);
             }
         },
     );
