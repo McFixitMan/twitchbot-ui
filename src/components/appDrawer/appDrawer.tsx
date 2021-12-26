@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Drawer, Menu } from 'antd';
-import { HomeOutlined, OrderedListOutlined } from '@ant-design/icons';
+import { GroupOutlined, HomeOutlined, OrderedListOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../types/thunk';
 
 import { NavLink } from 'react-router-dom';
@@ -58,6 +58,18 @@ export const AppDrawer: React.FC<AppDrawerProps> = (props) => {
                         <span>
                             <OrderedListOutlined style={{ fontSize: '1.2em' }} />
                             <span>Queue Info</span>
+                        </span>
+                    </NavLink>
+                </Menu.Item> 
+
+                <Menu.Item key="overlay">
+                    <NavLink 
+                        to={'/overlay'} 
+                        onClick={() => handleCloseDrawer()}
+                    >
+                        <span>
+                            <GroupOutlined style={{ fontSize: '1.2em' }} />
+                            <span>Overlay</span>
                         </span>
                     </NavLink>
                 </Menu.Item> 

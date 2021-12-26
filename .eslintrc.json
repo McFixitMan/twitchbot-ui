@@ -4,7 +4,7 @@
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended"
     ],
-    "plugins": ["react", "@typescript-eslint", "prettier"],
+    "plugins": ["react", "@typescript-eslint"],
     "env": {
         "es6": true,
         "node": true,

@@ -16,7 +16,7 @@ module.exports = {
                                 dark: true,
                                 compact: false,
                             }),
-                            // '@primary-color': '#007d00',
+                            '@primary-color': '#006e7a',
                         },
                         javascriptEnabled: true,
                     },
@@ -29,5 +29,12 @@ module.exports = {
             '@': path.resolve(__dirname, 'src/'),
         },
         plugins: [new WebpackBar({ profile: true, fancy: true })],
+        configure: (webpackConfig) => {
+            return {
+                ...webpackConfig,
+                ignoreWarnings: [/Failed to parse source map/],
+            };
+        },
+        
     },
 };

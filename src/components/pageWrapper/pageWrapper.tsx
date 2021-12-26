@@ -2,7 +2,7 @@ import './pageWrapper.less';
 
 import * as React from 'react';
 
-import { Button, Card, Col, Divider, Row } from 'antd';
+import { Button, Col, Divider, Row } from 'antd';
 import { LoadingOutlined, RobotOutlined, WarningOutlined } from '@ant-design/icons/lib/icons';
 
 import classNames from 'classnames';
@@ -159,14 +159,14 @@ export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
                 xs={24}
                 style={{ padding: 5 }}
             >
-                <Card>
-                    <Row
-                        align="top"
-                        justify="center"
-                        className="confirmation-page page"
-                    >
-                        <Col span={24}>
-                            {(props.showLogo ?? false) &&
+                {/* <Card> */}
+                <Row
+                    align="top"
+                    justify="center"
+                    className="confirmation-page page"
+                >
+                    <Col span={24}>
+                        {(props.showLogo ?? false) &&
                         <Row
                             align="middle"
                             justify="center"
@@ -176,17 +176,17 @@ export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
                                 <span><RobotOutlined size={15} style={{ margin: '0 10px' }} /></span>
                             </Col>
                         </Row>
-                            }
+                        }
                         
-                            {!!props.pageTitle &&
+                        {!!props.pageTitle &&
                         <Divider style={{ width: '100%' }}>{props.pageTitle}</Divider>
-                            }
+                        }
                         
-                        </Col>
-                    </Row>
+                    </Col>
+                </Row>
 
-                    {props.children}
-                </Card>
+                {props.children}
+                {/* </Card> */}
                 
             </Col>
 

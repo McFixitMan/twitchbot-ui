@@ -1,0 +1,51 @@
+@import '~antd/dist/antd.less';
+
+.queue-viewer {
+    .panel-title {
+        font-size: 2em;
+        font-weight: lighter;
+    }
+    .tag {
+        font-size: 1.2em;
+        margin: 5px;
+    }
+    .avatar {
+        font-size: 1.7em;
+        &.active {
+            background-color: @primary-color;
+        }
+    }
+    .level-code {
+        font-size: 1.8em;
+    }
+    .username {
+        font-size: 1.5em;
+        font-weight: lighter;
+    }
+    .current-level-action {
+        width: 100px;
+        height: 60px;
+    }
+    .action-button {
+        width: 100%;
+        height: 80px;
+    }
+    .current-level {
+        border: 2px solid @primary-color;
+        border-radius: 50px;
+    }
+
+    .socket-state {
+        font-size: 2em;
+        font-weight: lighter;
+        &.connecting {
+            color: @warning-color;
+        }
+        &.connected {
+            color: @success-color;
+        }
+        &.disconnected {
+            color: @error-color;
+        }
+    }
+}

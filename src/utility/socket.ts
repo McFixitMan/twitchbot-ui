@@ -1,40 +1,38 @@
-import { Socket } from 'socket.io-client';
+import { Socket, io } from 'socket.io-client';
 
-// import { SocketEvent } from '../types/socket';
-
-// import { SocketEvent } from 'freedom-pas.shared/enums/socketEvent';
-// import { config } from '../config';
+export enum SocketEvent {
+    connect = 'connect',
+    disconnect = 'disconnect',
+    levelAdded = 'levelAdded',
+    queueChanged = 'queueChanged',
+}
 
 export class AppSocket {
     private onChange: (isConnected: boolean) => void;
-    private onMessage: (message: string) => void;
+    private onEvent: (message: SocketEvent, ...args: Array<unknown>) => void;
     private socket: Socket | undefined;
 
-    constructor(onChange: (isConnected: boolean) => void, onMessage: (message: string) => void) {
+    constructor(onChange: (isConnected: boolean) => void, onEvent: (event: SocketEvent, ...args: Array<unknown>) => void) {
         this.onChange = onChange;
-        this.onMessage = onMessage;
+        this.onEvent = onEvent;
 
     }
 
-    public connect = (token: string): void => {
-        // this.socket = io(config.socketIoUrl, { 
-        //     auth: {
-        //         token: token ?? '',
-        //     },  
-        //     autoConnect: false,    
-        // });
-        // this.socket = io('localhost', { 
-        //     auth: {
-        //         token: token ?? '',
-        //     },  
-        //     autoConnect: false,    
-        // });
+    public connect = (): void => {
+        this.socket = io('http://localhost:1337', { 
 
-        // this.socket.on(SocketEvent.Connect, this.onConnected);
-        // this.socket.on(SocketEvent.Disconnect, this.onDisconnected);
+            autoConnect: false,    
+        });
+
+        this.socket.on(SocketEvent.connect, this.onConnected);
+        this.socket.on(SocketEvent.disconnect, this.onDisconnected);
+
+        this.socket.onAny((eventName, ...args) => {
+            this.onEvent(eventName, args);
+        });
 
         // connect
-        // this.socket.connect();
+        this.socket.connect();
     };
 
     public onConnected = (): void => {
