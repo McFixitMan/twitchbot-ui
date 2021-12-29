@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-import { Affix, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 
 import { ApiOutlined } from '@ant-design/icons';
-import { ChatViewer } from '../../components/chatViewer';
 import { PageWrapper } from '../../components/pageWrapper';
 import { QueueViewer } from '../../components/queueViewer';
 import { useAppSelector } from '../../types/thunk';
@@ -33,12 +32,17 @@ export const QueueInfoPage: React.FC<QueueInfoPageProps> = (props) => {
                 justify="center"
             >
                 
-                <Col span={16}>
+                <Col
+                    xxl={18}
+                    xl={20}
+                    lg={22}
+                    md={24}
+                    sm={24}
+                >
                     <QueueViewer />
                 </Col>
 
-                <Col 
-                    
+                {/* <Col 
                     span={8}
                 >
                     <Affix
@@ -46,8 +50,7 @@ export const QueueInfoPage: React.FC<QueueInfoPageProps> = (props) => {
                     >
                         <ChatViewer />
                     </Affix>
-                    
-                </Col>
+                </Col> */}
             </Row>
             }
         </PageWrapper>

@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import { Drawer, Menu } from 'antd';
+import { Col, Drawer, Menu, Row } from 'antd';
 import { GroupOutlined, HomeOutlined, OrderedListOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../types/thunk';
 
 import { NavLink } from 'react-router-dom';
 import { changeDrawerState } from '../../store/modules/appDrawerModule';
+import { routes } from '../../routes/appRoutes';
 
 interface AppDrawerProps {
     
@@ -16,14 +17,6 @@ export const AppDrawer: React.FC<AppDrawerProps> = (props) => {
 
     const isDrawerOpen = useAppSelector((state) => state.drawer.isDrawerOpen);
 
-    const handleCloseDrawer = (): void => {
-        dispatch(changeDrawerState(false));
-    };
-
-    // const handleThemeClicked = (): void => {
-    //     dispatch(changeThemeDrawerState(true));
-    // };
-
     return (
         <Drawer
             visible={isDrawerOpen}
@@ -31,48 +24,36 @@ export const AppDrawer: React.FC<AppDrawerProps> = (props) => {
             closable={true}
             title="Menu"
             mask={true}
-            onClose={() => handleCloseDrawer()}
+            onClose={() => dispatch(changeDrawerState(false))}
         >
             <Menu
                 className="appDrawerMenu"
                 mode="vertical"
                 selectable={false}
             >
-                <Menu.Item key="home">
-                    <NavLink 
-                        to={''} 
-                        onClick={() => handleCloseDrawer()}
-                    >
-                        <span>
-                            <HomeOutlined style={{ fontSize: '1.2em' }} />
-                            <span>Home</span>
-                        </span>
-                    </NavLink>
-                </Menu.Item> 
-
-                <Menu.Item key="queue-info">
-                    <NavLink 
-                        to={'/queue-info'} 
-                        onClick={() => handleCloseDrawer()}
-                    >
-                        <span>
-                            <OrderedListOutlined style={{ fontSize: '1.2em' }} />
-                            <span>Queue Info</span>
-                        </span>
-                    </NavLink>
-                </Menu.Item> 
-
-                <Menu.Item key="overlay">
-                    <NavLink 
-                        to={'/overlay'} 
-                        onClick={() => handleCloseDrawer()}
-                    >
-                        <span>
-                            <GroupOutlined style={{ fontSize: '1.2em' }} />
-                            <span>Overlay</span>
-                        </span>
-                    </NavLink>
-                </Menu.Item> 
+                {Object.keys(routes).map((key) => {
+                    return (
+                        <Menu.Item key={key}>
+                            <NavLink 
+                                to={routes[key].path} 
+                                onClick={() => dispatch(changeDrawerState(false))}
+                            >
+                                <Row
+                                    align="middle"
+                                    justify="start"
+                                    gutter={10}
+                                >
+                                    <Col>
+                                        {routes[key].icon}
+                                    </Col>
+                                    <Col>
+                                        {routes[key].title}
+                                    </Col>
+                                </Row>
+                            </NavLink>
+                        </Menu.Item> 
+                    );
+                })}
             </Menu>
         </Drawer>
     );
