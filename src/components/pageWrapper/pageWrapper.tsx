@@ -40,7 +40,7 @@ interface PageWrapperProps {
      * 
      * @link https://ant.design/components/icon/
      */
-    nonIdealIconType?: string;
+    nonIdealIcon?: React.ReactNode;
     /**
      * @summary A header message to show when the PageWrapper is in a non-ideal state
      */
@@ -66,6 +66,8 @@ interface PageWrapperProps {
     isLoading?: boolean;
     loadingMessage?: string;
     showLogo?: boolean;
+
+    innerRef?: React.Ref<HTMLDivElement>; 
 }
 
 export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
@@ -143,12 +145,16 @@ export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
         }
     };
 
+    // This feels gross
+    const IconElement: React.FC<{ className: string }> = () => <span className="non-ideal-icon">{props.nonIdealIcon}</span>;
+
     return (
         <Row 
             className={className}
             style={containerStyle}
             align="top"
             justify="center"
+            ref={props.innerRef}
         >
             <Col
                 xxl={24}
@@ -186,7 +192,6 @@ export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
                 </Row>
 
                 {props.children}
-                {/* </Card> */}
                 
             </Col>
 
@@ -194,7 +199,14 @@ export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
                         <div className="non-ideal-page">
     
                             <p>
-                                <WarningOutlined className="non-ideal-icon" />
+                                {
+                                    !!IconElement
+                                        ?
+                                        <IconElement className="non-ideal-icon" />
+                                        :
+                                        <WarningOutlined className="non-ideal-icon" />
+                                }
+                                
                             </p>
                             <p className="non-ideal-header">
                                 {props.nonIdealHeader}

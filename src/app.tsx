@@ -11,6 +11,7 @@ import { configureStore } from './store/createStore';
 export const store = configureStore();
 
 const App: React.FC = (props) => {
+
     return (
         <div className="App">
             <Provider

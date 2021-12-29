@@ -38,17 +38,14 @@ export const QueueRecord: React.FC = (props) => {
 
     return (
         <Card 
-            bordered={true}
+            bordered={false}
             className="queue-record"
+            title="Record"
         >
             <Row
                 align="middle"
                 justify="start"
             >
-                <Col span={24} style={{ textAlign: 'left' }}>
-                    <span className="panel-title">Record</span>
-                </Col>
-
                 <Col span={24}>
                     <Row
                         align="middle"

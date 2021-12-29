@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Avatar, Button, Card, Col, List, Row, Tag, message } from 'antd';
+import { Avatar, Button, Card, Col, List, Row, Tag, Tooltip, message } from 'antd';
 import { DollarCircleOutlined, FastForwardOutlined, HeartOutlined, ToolOutlined, UserOutlined } from '@ant-design/icons';
 import { getCurrentQueueItems, setCurrentLevel } from '../../../store/modules/queueModule';
 import { useAppDispatch, useAppSelector } from '../../../types/thunk';
@@ -33,14 +33,12 @@ export const CurrentQueue: React.FC = (props) => {
         <Card
             bordered={false}
             className="current-queue"
+            title="Current Queue"
         >
             <Row
                 align="middle"
                 justify="start"
             >
-                <Col span={24} style={{ textAlign: 'left' }}>
-                    <span className="panel-title">Current Queue</span>
-                </Col>
                 <Col span={24}>
                     <List
                         style={{ width: '100%' }}
@@ -54,26 +52,44 @@ export const CurrentQueue: React.FC = (props) => {
                                 style={{ width: '100%' }}                           
                                 actions={[
                                     (
-                                        <Button 
+                                        <Tooltip
                                             key={`${item.id}-play`} 
-                                            type="primary"
-                                            onClick={async (e) => {
-                                                const action = await dispatch(setCurrentLevel(item.username));
-
-                                                if (setCurrentLevel.rejected.match(action)) {
-                                                    // rejected
-                                                    message.error(`Error setting level: ${action.payload?.response?.data.message ?? action.error.message}`);
-                                                } else if (setCurrentLevel.fulfilled.match(action)) {
-                                                    // huzzah
-                                                    message.success(`${item.username}'s level has been selected`);
-                                                }
-                                            }}
+                                            title={`Select ${item.username}'s level to play now. If there is a level in progress, it will be returned to the queue in its original position`}
                                         >
-                                            Play Now
-                                        </Button>
+                                            <Button 
+                                                className="current-level-action"
+                                                type="primary"
+                                                onClick={async (e) => {
+                                                    const action = await dispatch(setCurrentLevel(item.username));
+
+                                                    if (setCurrentLevel.rejected.match(action)) {
+                                                    // rejected
+                                                        message.error(`Error setting level: ${action.payload?.response?.data.message ?? action.error.message}`);
+                                                    } else if (setCurrentLevel.fulfilled.match(action)) {
+                                                    // huzzah
+                                                        message.success(`${item.username}'s level has been selected`);
+                                                    }
+                                                }}
+                                            >
+                                                Play Now
+                                            </Button>
+                                        </Tooltip>
+                                        
                                     ),
                                     (
-                                        <Button key={`${item.id}-remove`} type="primary" danger={true}>Remove</Button>
+                                        <Tooltip
+                                            key={`${item.id}-remove`}
+                                            title={`Remove ${item.username}'s level from the queue`}
+                                        >
+                                            <Button 
+                                                className="current-level-action"
+                                                type="primary" 
+                                                danger={true}
+                                            >
+                                                Remove
+                                            </Button>
+                                        </Tooltip>
+                                        
                                     ),
                                 ]}
                             >
@@ -113,8 +129,6 @@ export const CurrentQueue: React.FC = (props) => {
                                                 }
                                             </Col>
                                             }
-                                            
-                                            
                                         </Row>
                                     }
                                     avatar={<Avatar size="large" className="avatar">{index + 1}</Avatar>}

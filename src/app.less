@@ -27,7 +27,7 @@
     bottom: @footer-height;
     left: 0px;
     right: 0px;
-    overflow: auto !important;
+    overflow: hidden !important;
 }
 
 .layout-footer {
@@ -44,35 +44,32 @@
     box-shadow: 0 3px 17px 1px @primary-7;
 }
 
-// .ant-modal-mask {
-//     background-color: @custom-overlay-background !important;
-// }
-
-.ant-card-head {
-    // border-bottom: 1px solid @border-color-base;
-}
-
-.ant-card-body {
-    // box-shadow: 15px 15px 30px -15px @primary-7;
-}
-
-// Fix row margins when gutters are used
-// .ant-row {
-//     margin-right: 0 !important;
-//     margin-left: 0 !important;
-//   }
-  
-//   .ant-col:first-child {
-//       padding-left: 0 !important;
-//   }
-  
-//   .ant-col:last-child {
-//     padding-right: 0 !important;
-//   }
-
 .header-title, .header-icon {
     font-size: 2.5em;
     color: @primary-7;
+}
+
+.socket-state-container {
+    padding: 8px;
+    // margin: 10px;
+    border-radius: 5px;
+
+    &.connecting {
+        background-color: @warning-color;
+    }
+    &.connected {
+        background-color: @success-color;
+    }
+    &.disconnected {
+        background-color: @error-color;
+    }
+
+    .socket-state {
+        font-size: 1.2em;
+        // font-weight: lighter;
+        color: @white;
+        
+    }
 }
 
 
@@ -112,6 +109,25 @@
 
 @header-height: 60px;
 @footer-height: 0px;
+
+.chat-viewer {
+    height: calc(100vh - 150px);
+    overflow: hidden;
+    margin: 10px !important;
+
+    border-radius: 25px !important;
+
+    .ant-card-body {
+        overflow: auto;
+        max-height: 90%;
+    }
+
+}
+
+.ant-tooltip-inner {
+    text-align: center !important;
+}
+
 
 @keyframes App-logo-spin {
   from {

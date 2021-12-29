@@ -5,6 +5,7 @@ export enum SocketEvent {
     disconnect = 'disconnect',
     levelAdded = 'levelAdded',
     queueChanged = 'queueChanged',
+    chatMessage = 'chatMessage',
 }
 
 export class AppSocket {
