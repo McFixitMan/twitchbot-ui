@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { Col, Drawer, Menu, Row } from 'antd';
-import { GroupOutlined, HomeOutlined, OrderedListOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../types/thunk';
 
 import { NavLink } from 'react-router-dom';

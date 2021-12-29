@@ -17,7 +17,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
             title={sentAt.toLocaleTimeString('en-CA', {
                 timeStyle: 'medium',
             })}
-            placement="left"
+            placement="bottomLeft"
         >
             <Row>   
                 <Col style={{ marginTop: '8px' }}>
