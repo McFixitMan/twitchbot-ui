@@ -14,13 +14,19 @@ export const sendChatMessage = createApiThunk<unknown, string>('chat/sendChatMes
     });
 });
 
+export const setUsernameFilter = createAction<string>('chat/setUsernameFilter');
+
 const initialState: ChatState = {
     chatMessages: [],
+    usernameFilter: undefined,
 };
 
 export const chatReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(addChatMessage, (state, action) => {
             state.chatMessages.push(action.payload);
+        })
+        .addCase(setUsernameFilter, (state, action) => {
+            state.usernameFilter = action.payload;
         });
 });

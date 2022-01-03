@@ -5,6 +5,7 @@ import { sendChatMessage } from '../../../store/modules/chatModule';
 import { useAppDispatch } from '../../../types/thunk';
 
 export const ChatMessageSender: React.FC = (props) => {
+
     const dispatch = useAppDispatch();
     const [message, setMessage] = React.useState('');
 

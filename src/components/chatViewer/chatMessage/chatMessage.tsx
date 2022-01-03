@@ -18,6 +18,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
                 timeStyle: 'medium',
             })}
             placement="bottomLeft"
+            trigger="click"
         >
             <Row>   
                 <Col style={{ marginTop: '8px' }}>

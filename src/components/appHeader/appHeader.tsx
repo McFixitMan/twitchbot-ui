@@ -2,7 +2,7 @@ import './appHeader.less';
 
 import * as React from 'react';
 
-import { ApiOutlined, BulbOutlined, DisconnectOutlined, LoadingOutlined, MenuFoldOutlined, MenuUnfoldOutlined, RobotOutlined } from '@ant-design/icons';
+import { ApiOutlined, BulbOutlined, LoadingOutlined, MenuFoldOutlined, MenuUnfoldOutlined, RobotOutlined } from '@ant-design/icons';
 import { Col, Row, Tooltip } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../types/thunk';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Col, Row } from 'antd';
+import { Card, Col, Row } from 'antd';
 
 import { ApiOutlined } from '@ant-design/icons';
 import { ChatViewer } from '../../components/chatViewer';
@@ -22,7 +22,7 @@ export const ChatPage: React.FC = (props) => {
                 align="middle"
                 justify="center"
             >
-                <Col>
+                <Col span={12}>
                     <ChatViewer />
                 </Col>
             </Row>
