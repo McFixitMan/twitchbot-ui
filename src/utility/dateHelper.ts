@@ -78,10 +78,14 @@ export const getDateDifferenceTimeString = (start: Date, end: Date): string => {
         result += `${days}D, `;
     }
     if (!!hours) {
-        result += `${hours}:`;
+        result += `${String(hours).padStart(2, '0')}:`;
+
+        result += `${String(minutes).padStart(2, '0')}:`;
+    } else {
+        result += `${minutes}:`;
     }
 
-    result += `${minutes}:`;
+    // result += `${String(minutes).padStart(2, '0')}:`;
 
     result += String(seconds).padStart(2, '0');
 

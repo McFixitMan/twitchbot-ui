@@ -185,7 +185,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
                         }
                         
                         {!!props.pageTitle &&
-                        <Divider style={{ width: '100%' }}>{props.pageTitle}</Divider>
+                        <Divider style={{ fontSize: '1.7em' }}>{props.pageTitle}</Divider>
                         }
                         
                     </Col>

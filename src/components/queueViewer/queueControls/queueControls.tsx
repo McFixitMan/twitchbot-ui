@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { AlertOutlined, DollarOutlined, QuestionCircleOutlined, StepForwardOutlined } from '@ant-design/icons';
+import { AlertOutlined, DollarOutlined, FieldTimeOutlined, QuestionCircleOutlined, StepForwardOutlined } from '@ant-design/icons';
 import { Button, Col, Row, Tooltip, message } from 'antd';
-import { setNextLevel, setRandomLevel, setSubNextLevel, setSubRandomLevel } from '../../../store/modules/queueModule';
+import { setNextLevel, setRandomLevel, setSubNextLevel, setSubRandomLevel, setWeightedRandomLevel } from '../../../store/modules/queueModule';
 
 import { useAppDispatch } from '../../../types/thunk';
 
@@ -13,8 +13,17 @@ export const QueueControls: React.FC = (props) => {
         <Row 
             style={{ margin: 10 }}
             gutter={10}
+            align="middle"
+            justify="center"
         >
-            <Col span={6}>
+            <Col
+                xxl={5}
+                xl={5}
+                lg={24}
+                md={24}
+                sm={24}
+                xs={24}
+            >
                 <Tooltip
                     title="Set the current level to the next level in the queue"
                     placement="bottom"
@@ -40,7 +49,14 @@ export const QueueControls: React.FC = (props) => {
                
             </Col>
 
-            <Col span={6}>
+            <Col
+                xxl={5}
+                xl={5}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+            >
                 <Tooltip
                     title="Set the current level to a random level from the queue"
                     placement="bottom"
@@ -64,10 +80,49 @@ export const QueueControls: React.FC = (props) => {
                         Random
                     </Button>
                 </Tooltip>
-                
             </Col>
 
-            <Col span={6}>
+            <Col
+                xxl={5}
+                xl={5}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+            >
+                <Tooltip
+                    title={<span>Set the current level to a random level from the queue <strong>weighted by how long they have been in the queue</strong></span>}
+                    placement="bottom"
+                >
+                    <Button 
+                        type="default"
+                        danger={true}
+                        size="large"
+                        icon={<FieldTimeOutlined />}
+                        className="action-button"
+                        onClick={async (e) => {
+                            const action = await dispatch(setWeightedRandomLevel());
+
+                            if (setWeightedRandomLevel.rejected.match(action)) {
+                                message.error(`Error changing level: ${action.payload?.response?.data.message ?? action.error.message}`);
+                            } else if (setWeightedRandomLevel.fulfilled.match(action)) {
+                                message.success(`Next level is set to ${action.payload.levelCode} (${action.payload.username})`);
+                            }
+                        }}
+                    >
+                        Weight Random
+                    </Button>
+                </Tooltip>
+            </Col>
+
+            <Col
+                xxl={4}
+                xl={4}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+            >
                 <Tooltip
                     title="Set the current level to the next level in the queue that was added by a subscriber"
                     placement="bottom"
@@ -93,7 +148,14 @@ export const QueueControls: React.FC = (props) => {
                 
             </Col>
 
-            <Col span={6}>
+            <Col
+                xxl={4}
+                xl={4}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+            >
                 <Tooltip
                     title="Set the current level to a random level from the queue that was added by a subscriber"
                     placement="bottom"

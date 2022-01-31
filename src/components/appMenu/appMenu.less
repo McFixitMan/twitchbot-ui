@@ -1,0 +1,66 @@
+@import '~antd/dist/antd.less';
+
+.app-menu {
+    background: transparent !important;
+
+    .ant-menu-submenu-arrow {
+        color: @white !important;
+    }
+
+    .menu-item {
+        background: @primary-color;
+        color: @white;
+        padding: 10px;
+        height: 100%;
+
+        &.active {
+            background: @primary-3;
+        }
+
+        &:hover {
+            background: @primary-2 !important;
+            color: @white;
+
+            .menu-item-link {
+                color: @white;
+            }
+        }
+    }
+
+    .sub-menu {
+        &.ant-menu-submenu {
+            background: @primary-color;
+            color: @white;
+
+            .ant-menu-submenu-title {
+                color: @white;
+            }
+    
+            &.active {
+                background: @primary-3;
+                color: @white;
+            }
+            
+            &.hover, .ant-menu-submenu-open {
+                background: @primary-9 !important;
+                color: @white !important;
+                .ant-menu-title-content {
+                    color: @white !important;
+                }
+            }
+        }
+        
+        
+    }
+
+    .menu-item-link.active {
+        color: @white;      
+
+    }
+
+    .menu-item-link {
+        color: @white;
+    }
+
+    
+}

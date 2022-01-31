@@ -53,6 +53,7 @@
     padding: 8px;
     // margin: 10px;
     border-radius: 5px;
+    min-width: 50px;
 
     &.connecting {
         background-color: @warning-color;
@@ -86,27 +87,6 @@
     font-weight: lighter;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 @header-height: 60px;
 @footer-height: 0px;
 
@@ -124,12 +104,37 @@
     text-align: center !important;
 }
 
+.ant-message {
+    position: absolute;
+    bottom: 20px !important;
+    top: unset !important;
+    transform: scale(1.5);
+  }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  /* 
+The following class-endings: *-enter, *-enter-active, *-exit, *-exit-active,
+have very specific meanings to <CSSTransition />
+(see more: https://reactcommunity.org/react-transition-group/css-transition)
+*/
+
+.fade-enter {
+    opacity: 0;
+    transform: translate(50px, 0);
+    z-index: 1;
   }
-  to {
-    transform: rotate(360deg);
+  .fade-enter.fade-enter-active {
+    opacity: 1;
+    transform: translate(0, 0);
+  
+    transition: opacity 300ms ease-out, transform 350ms ease;
   }
-}
+  .fade-exit {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  .fade-exit.fade-exit-active {
+    opacity: 0;
+    transform: translate(0, 50px);
+  
+    transition: opacity 300ms ease-out, transform 350ms ease;
+  }

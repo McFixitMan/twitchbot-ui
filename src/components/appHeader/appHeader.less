@@ -18,11 +18,37 @@
 
     .logout-icon {
         color: @white;
-        transition: color 0.15s linear;
+        // transition: color 0.15s linear;
+    }
+
+    // .header-menu-button {
+    //     display: none;
+    // }
+}
+
+@media all and (max-width: 810px) {
+    .header {
+        // .app-menu {
+        //     .menu-item {
+        //         &.active {
+        //             background: @primary-color;
+        //         }
+        //     }
+        // }
+        
+        .menu-item-link, .sub-menu {
+            display: none;
+        }
+    
+        // .header-menu-button {
+        //     display: block;
+        // }
+
+        .socket-state {
+            .socket-state-text {
+                display: none;
+            }
+        }
     }
     
-    .logout-icon:hover {
-        color: @error-color;
-        transition: color 0.15s linear;
-    }
 }

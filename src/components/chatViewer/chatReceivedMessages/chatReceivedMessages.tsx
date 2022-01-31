@@ -15,10 +15,6 @@ import { useAppSelector } from '../../../types/thunk';
 // 
 // Have a nice day.
 
-
-
-
-
 export const DynamicListContext = React.createContext<Partial<{ setSize: (index: number, size: number) => void }>>({});
 
 export const ChatReceivedMessages: React.FC = (props) => {
@@ -81,12 +77,12 @@ export const ChatReceivedMessages: React.FC = (props) => {
             <div>                
                 <Row>
                     {chatMessages.length === 0 &&
-                        <Col span={24} style={{ height: '40vh' }}>
+                        <Col span={24} style={{ height: '60vh' }}>
                             <Empty description="No Messages Received" image={Empty.PRESENTED_IMAGE_SIMPLE} />
                         </Col>
                     }
                     {chatMessages.length > 0 &&
-                    <Col span={24} style={{ height: '40vh' }}>
+                    <Col span={24} style={{ height: '60vh' }}>
                         <AutoSizer>
                             {({ height, width }) => (
                                 <VariableSizeList
@@ -113,7 +109,7 @@ export const ChatReceivedMessages: React.FC = (props) => {
                     gutter={10}
                     style={{ margin: 15 }}
                 >
-                    <Col>
+                    <Col style={{ margin: 5 }}>
                         {isAutoScrolling
                             ?
                             <Button 
@@ -132,7 +128,7 @@ export const ChatReceivedMessages: React.FC = (props) => {
                             </Button>
                         }
                     </Col>
-                    <Col>
+                    <Col style={{ margin: 5 }}>
                         <Button
                             onClick={() => scrollToBottom()}
                         >

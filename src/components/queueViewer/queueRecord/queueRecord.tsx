@@ -7,7 +7,13 @@ import { useAppDispatch, useAppSelector } from '../../../types/thunk';
 
 import { getQueueRecord } from '../../../store/modules/queueModule';
 
-export const QueueRecord: React.FC = (props) => {
+interface QueueRecordProps {
+    showTitle?: boolean;
+    showWinsLosses?: boolean;
+    showRate?: boolean;
+}
+
+export const QueueRecord: React.FC<QueueRecordProps> = (props) => {
     const dispatch = useAppDispatch();
 
     const queueRecord = useAppSelector((state) => state.queue.queueRecord);
@@ -36,11 +42,16 @@ export const QueueRecord: React.FC = (props) => {
         winPercent = 0;
     }
 
+    // Default props
+    const showTitle = props.showTitle ?? true;
+    const showWinsLosses = props.showWinsLosses ?? true;
+    const showRate = props.showRate ?? true;
+
     return (
         <Card 
-            bordered={false}
+            bordered={true}
             className="queue-record"
-            title="Record"
+            title={showTitle ? 'Record' : undefined}
         >
             <Row
                 align="middle"
@@ -51,6 +62,7 @@ export const QueueRecord: React.FC = (props) => {
                         align="middle"
                         justify="center"
                     >
+                        {!!showWinsLosses &&
                         <Col span={12}>
                             <Statistic
                                 title={'Wins'}
@@ -58,6 +70,8 @@ export const QueueRecord: React.FC = (props) => {
                                 value={queueRecord?.wins ?? '/'}
                             />
                         </Col>
+                        }
+                        {!!showWinsLosses &&
                         <Col span={12}>
                             <Statistic
                                 title={'Losses'}
@@ -65,9 +79,11 @@ export const QueueRecord: React.FC = (props) => {
                                 value={queueRecord?.losses ?? '/'}
                             />
                         </Col>
+                        }
 
                         <Divider />
 
+                        {!!showRate &&
                         <Col span={12}>
                             <Statistic
                                 className={'percent'}
@@ -76,6 +92,8 @@ export const QueueRecord: React.FC = (props) => {
                                 suffix={'%'}
                             />
                         </Col>
+                        }
+                        
                     </Row>
                 </Col>
 

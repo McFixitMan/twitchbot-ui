@@ -6,6 +6,7 @@ import { ApiOutlined, BulbOutlined, LoadingOutlined, MenuFoldOutlined, MenuUnfol
 import { Col, Row, Tooltip } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../types/thunk';
 
+import { AppMenu } from '../appMenu';
 import { NavLink } from 'react-router-dom';
 import { changeDrawerState } from '../../store/modules/appDrawerModule';
 
@@ -19,10 +20,6 @@ export const AppHeader: React.FC<AppHeaderProps> = (props) => {
     const isDrawerOpen = useAppSelector((state) => state.drawer.isDrawerOpen);
     const isConnecting = useAppSelector((state) => state.socket.isConnecting);
     const isConnected = useAppSelector((state) => state.socket.isConnected);
-
-    const handleDrawerClicked = (toOpen: boolean): void => {
-        dispatch(changeDrawerState(toOpen));
-    };
 
     return (
         <Row
@@ -40,20 +37,20 @@ export const AppHeader: React.FC<AppHeaderProps> = (props) => {
                             align="middle"
                             justify="start"
                         >
-                            <Col>
+                            <Col className="header-menu-button">
                                 {isDrawerOpen === true
                                     ?
                                     <MenuFoldOutlined
                                         className="header-icon"
                                         style={{ fontSize: 20, marginLeft: 16, marginRight: 16, cursor: 'pointer' }}
-                                        onClick={() => handleDrawerClicked(false)}
+                                        onClick={() => dispatch(changeDrawerState(false))}
                                     />
                                     :
                                     <Tooltip title="Open Menu" placement="bottomRight">
                                         <MenuUnfoldOutlined
                                             className="header-icon"
                                             style={{ fontSize: 20, marginLeft: 16, marginRight: 16, cursor: 'pointer' }}
-                                            onClick={() => handleDrawerClicked(true)}
+                                            onClick={() => dispatch(changeDrawerState(true))}
                                         />
                                     </Tooltip>
                                     
@@ -73,18 +70,30 @@ export const AppHeader: React.FC<AppHeaderProps> = (props) => {
                         
                     </Col>
                     
-                    
+                    <Col>
+                        <Row>
+                            <AppMenu 
+                                mode="horizontal" 
+                            />
+                        </Row>
+                        
+                    </Col>
                     
                     <Col 
                         className={`socket-state-container ${isConnecting ? 'connecting' : isConnected ? 'connected' : 'disconnected'}`}
                         style={{ marginRight: 25 }}
                     >
-                        {isConnecting
-                            ? <span className="socket-state"><LoadingOutlined /> Connecting...</span>
-                            : isConnected 
-                                ? <span className="socket-state"><BulbOutlined /> Connected</span> 
-                                : <span className="socket-state"><ApiOutlined /> Disconnected</span>
-                        }
+                        <Tooltip
+                            title={isConnecting ? 'Connecting to McFixitBOT server...' : isConnected ? 'Connected to McFixitBOT server' : 'Disconnected from McFixitBOT server'}
+                        >
+                            {isConnecting
+                                ? <span className="socket-state"><LoadingOutlined /> <span className="socket-state-text">Connecting...</span></span>
+                                : isConnected 
+                                    ? <span className="socket-state"><BulbOutlined /> <span className="socket-state-text">Connected</span></span>
+                                    : <span className="socket-state"><ApiOutlined /> <span className="socket-state-text">Disconnected</span></span>
+                            }
+                        </Tooltip>
+                        
                     </Col>
                 </Row>
             </Col>

@@ -1,0 +1,38 @@
+@import '~antd/dist/antd.less';
+
+.level-info {
+    .level-name {
+        font-weight: bold;
+        font-size: 2em;
+        margin: 5px;
+        color: @primary-10;
+    }
+    .level-description {
+        margin: 5px;
+    }
+    .clear-rate {
+        margin: 5px;
+        font-size: 1.2em;
+
+        .easy {
+            .ant-statistic-content-value {
+                color: @success-color !important;
+            }
+            
+        }
+        .hard {
+            .ant-statistic-content-value {
+                color: @error-color !important;
+            }
+        }
+    }
+
+    .level-vote {
+        margin: 5px;
+        font-size: 2em;
+        font-weight: lighter;
+    }
+    .uploader {
+        font-size: 1.2em;
+    }
+}

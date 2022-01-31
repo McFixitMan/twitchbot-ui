@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Col, Row, Tag, Tooltip } from 'antd';
-import { CrownOutlined, DollarCircleOutlined, HeartOutlined, RobotOutlined, ToolOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { Col, Row, Tooltip } from 'antd';
 
 import { ChatMessage as Message } from '../../../entities/chatMessage';
+import { RoleTag } from '../../roleTag';
 
 interface ChatMessageProps {
     chatMessage: Message;
@@ -23,50 +23,44 @@ export const ChatMessage: React.FC<ChatMessageProps> = (props) => {
             <Row>   
                 <Col style={{ marginTop: '8px' }}>
                     {badges.isBot &&
-                <Tooltip
-                    title="Bot"
-                >
-                    <Tag color="red"><RobotOutlined /></Tag>
-                </Tooltip>
+                        <RoleTag
+                            type="bot"
+                            showText={false}
+                        />
                     }
                     {badges.isBroadcaster &&
-                <Tooltip
-                    title="Broadcaster"
-                >
-                    <Tag color="red"><VideoCameraOutlined /></Tag>
-                </Tooltip>
+                        <RoleTag
+                            type="broadcaster"
+                            showText={false}
+                        />
                     }
 
                     {badges.isMod &&
-                <Tooltip
-                    title="Mod"
-                >
-                    <Tag color="green"><ToolOutlined /></Tag>
-                </Tooltip>
+                        <RoleTag
+                            type="mod"
+                            showText={false}
+                        />
                     }
 
                     {badges.isSub &&
-                <Tooltip
-                    title="Sub"
-                >
-                    <Tag color="blue"><DollarCircleOutlined /></Tag>
-                </Tooltip>
+                        <RoleTag
+                            type="sub"
+                            showText={false}
+                        />
                     }
 
                     {badges.isVip &&
-                <Tooltip
-                    title="VIP"
-                >
-                    <Tag color="red"><HeartOutlined /></Tag>
-                </Tooltip>
+                        <RoleTag
+                            type="vip"
+                            showText={false}
+                        />
                     }
 
                     {badges.isFounder &&
-                <Tooltip
-                    title="Founder"
-                >
-                    <Tag color="gold"><CrownOutlined /></Tag>
-                </Tooltip>
+                        <RoleTag
+                            type="founder"
+                            showText={false}
+                        />
                     }
 
                     <span style={{ color: userColor }}>{username}: &nbsp;</span>

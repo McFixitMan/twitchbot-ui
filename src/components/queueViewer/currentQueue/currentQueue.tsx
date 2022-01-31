@@ -1,14 +1,16 @@
+import './currentQueue.less';
+
 import * as React from 'react';
 
-import { Avatar, Button, Card, Col, List, Row, Tag, Tooltip, message } from 'antd';
-import { DollarCircleOutlined, FastForwardOutlined, HeartOutlined, ToolOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Button, Card, Col, Divider, Row, Tooltip, message } from 'antd';
 import { getCurrentQueueItems, setCurrentLevel } from '../../../store/modules/queueModule';
 import { useAppDispatch, useAppSelector } from '../../../types/thunk';
+
+import { RoleTag } from '../../roleTag';
 
 export const CurrentQueue: React.FC = (props) => {
     const dispatch = useAppDispatch();
 
-    const isLoading = useAppSelector((state) => state.queue.isLoading);
     const queueItems = useAppSelector((state) => state.queue.currentQueueItems);
 
     React.useEffect(() => {
@@ -20,10 +22,7 @@ export const CurrentQueue: React.FC = (props) => {
                 message.error(`Error loading queue items: ${action.payload?.response?.data.message}`);
 
                 return;
-            } else if (getCurrentQueueItems.fulfilled.match(action)) {
-                // Finished
-                
-            } 
+            }
         }
 
         loadQueue();
@@ -31,114 +30,148 @@ export const CurrentQueue: React.FC = (props) => {
 
     return (
         <Card
-            bordered={false}
+            bordered={true}
             className="current-queue"
             title="Current Queue"
         >
-            <Row
-                align="middle"
-                justify="start"
-            >
-                <Col span={24}>
-                    <List
-                        style={{ width: '100%' }}
-                        loading={isLoading}
-                        itemLayout="horizontal"
-                        dataSource={queueItems}
-                        size="small"
-                        renderItem={(item, index) => (
-                            <List.Item
-                                key={item.username}     
-                                style={{ width: '100%' }}                           
-                                actions={[
-                                    (
-                                        <Tooltip
-                                            key={`${item.id}-play`} 
-                                            title={`Select ${item.username}'s level to play now. If there is a level in progress, it will be returned to the queue in its original position`}
-                                        >
-                                            <Button 
-                                                className="current-level-action"
-                                                type="primary"
-                                                onClick={async (e) => {
-                                                    const action = await dispatch(setCurrentLevel(item.username));
+            {queueItems?.map((queueItem, index) => {
+                return (
+                    <Row
+                        key={queueItem.id}
+                        align="middle"
+                        justify="space-between"
+                    >
+                        <Col
+                            xxl={2}
+                            xl={2}
+                            lg={2}
+                            md={2}
+                            sm={2}
+                            xs={2}
+                        >
+                            <Avatar className="avatar active" size="large">
+                                {index + 1}
+                            </Avatar>
+                        </Col>
 
-                                                    if (setCurrentLevel.rejected.match(action)) {
-                                                    // rejected
-                                                        message.error(`Error setting level: ${action.payload?.response?.data.message ?? action.error.message}`);
-                                                    } else if (setCurrentLevel.fulfilled.match(action)) {
-                                                    // huzzah
-                                                        message.success(`${item.username}'s level has been selected`);
-                                                    }
-                                                }}
-                                            >
-                                                Play Now
-                                            </Button>
-                                        </Tooltip>
-                                        
-                                    ),
-                                    (
-                                        <Tooltip
-                                            key={`${item.id}-remove`}
-                                            title={`Remove ${item.username}'s level from the queue`}
-                                        >
-                                            <Button 
-                                                className="current-level-action"
-                                                type="primary" 
-                                                danger={true}
-                                            >
-                                                Remove
-                                            </Button>
-                                        </Tooltip>
-                                        
-                                    ),
-                                ]}
+                        <Col
+                            xxl={12}
+                            xl={12}
+                            lg={12}
+                            md={12}
+                            sm={24}
+                            xs={24}
+                        >
+                            <Row
+                                align="middle"
+                                justify="center"
                             >
-                                <List.Item.Meta
-                                    title={<span className="username">{item.username}</span>}
-                                    description={
-                                        <Row
-                                            align="middle"
-                                            justify="center"
-                                        >
-                                            <Col span={24} className="level-code">
-                                                {item.levelCode} 
-                                            </Col>
+                                <Col span={24} className="username">
+                                    {queueItem.username}
+                                </Col>
 
-                                            {(
-                                                item.isSkip ||
-                                                item.isMakerCode ||
-                                                item.isVip ||
-                                                item.isSub ||
-                                                item.isMod
-                                            ) &&
-                                            <Col style={{ margin: 5 }}>
-                                                {item.isSkip &&
-                                                        <Tag color="magenta" className="tag"><FastForwardOutlined /> Skipped</Tag>
-                                                }
-                                                {item.isMakerCode &&
-                                                        <Tag color="orange" className="tag"><UserOutlined /> MakerCode</Tag>
-                                                }
-                                                {item.isVip &&
-                                                        <Tag color="red" className="tag"><HeartOutlined /> VIP</Tag>
-                                                }
-                                                {item.isSub &&
-                                                        <Tag color="blue" className="tag"><DollarCircleOutlined /> Sub</Tag>
-                                                }
-                                                {item.isMod &&
-                                                        <Tag color="green" className="tag"><ToolOutlined /> Mod </Tag>
-                                                }
-                                            </Col>
-                                            }
-                                        </Row>
+                                <Col span={24} className="level-code">
+                                    {queueItem.levelCode} 
+                                </Col>
+
+                                <Col style={{ margin: 5 }}>
+                                    {queueItem.isSkip &&
+                                        <RoleTag type="skipped" />
                                     }
-                                    avatar={<Avatar size="large" className="avatar">{index + 1}</Avatar>}
-                                />
-                            </List.Item>
+
+                                    {queueItem.isMakerCode &&
+                                        <RoleTag type="makercode" />
+                                    }
+
+                                    {queueItem.isVip &&
+                                        <RoleTag type="vip" />
+                                    }
+
+                                    {queueItem.isSub &&
+                                        <RoleTag type="sub" />
+                                    }
                         
-                        )}
-                    />
-                </Col>
-            </Row>
+                                    {queueItem.isMod &&
+                                        <RoleTag type="mod" />
+                                    }
+                                </Col>
+                            </Row>
+                        </Col>
+
+                        <Col
+                            xxl={10}
+                            xl={10}
+                            lg={10}
+                            md={10}
+                            sm={24}
+                            xs={24}
+                        >
+                            <Row
+                                gutter={5}
+                                align="middle"
+                                justify="center"
+                                style={{ margin: 10 }}
+                            >
+                                <Col 
+                                    xxl={12}
+                                    xl={12}
+                                    lg={12}
+                                    md={12}
+                                    sm={12}
+                                    xs={12}
+                                >
+                                    <Tooltip
+                                        key={`${queueItem.id}-play`} 
+                                        title={`Select ${queueItem.username}'s level to play now. If there is a level in progress, it will be returned to the queue in its original position`}
+                                    >
+                                        <Button 
+                                            className="current-level-action"
+                                            type="primary"
+                                            onClick={async (e) => {
+                                                const action = await dispatch(setCurrentLevel(queueItem.username));
+
+                                                if (setCurrentLevel.rejected.match(action)) {
+                                                    // rejected
+                                                    message.error(`Error setting level: ${action.payload?.response?.data.message ?? action.error.message}`);
+                                                } else {
+                                                    message.success(`${queueItem.username}'s level has been selected`);
+                                                }
+                                            }}
+                                        >
+                                                Play Now
+                                        </Button>
+                                    </Tooltip>
+                                </Col>
+
+                                <Col 
+                                    xxl={12}
+                                    xl={12}
+                                    lg={12}
+                                    md={12}
+                                    sm={12}
+                                    xs={12}
+                                >
+                                    <Tooltip
+                                        key={`${queueItem.id}-remove`}
+                                        title={`Remove ${queueItem.username}'s level from the queue`}
+                                    >
+                                        <Button 
+                                            className="current-level-action"
+                                            type="primary" 
+                                            danger={true}
+                                        >
+                                                Remove
+                                        </Button>
+                                    </Tooltip>
+                                </Col>
+                            </Row>
+                        </Col>
+
+                        <Divider />
+                    </Row>
+                );
+            })}
+            
         </Card>
     );
 };

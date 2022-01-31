@@ -13,6 +13,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState, Ap
         store.dispatch(connectionChanged(isConnected));
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onIncomingEvent = (event: SocketEvent, ...args: Array<any>): void => {
         for (const arg of args) {
             for (const a of arg) {

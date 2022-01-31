@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { HttpMethod } from '../types/httpMethod';
 
@@ -57,3 +57,11 @@ export function handleDates(body: Record<any, any>): unknown {
         }
     }
 }
+
+export const getApiErrorMessage = (error: AxiosError<ApiError, unknown> | undefined): string => {
+    if (!error) {
+        return 'An unknown error occurred';
+    }
+
+    return error.response?.data.message ?? error.message;
+};
