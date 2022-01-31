@@ -15,6 +15,7 @@ export const CurrentLevelWidget: React.FC = (props) => {
     
     const botState = useAppSelector((state) => state.queue.botState);
     const currentMm2Info = useAppSelector((state) => state.queue.currentMm2Info);
+    const isLoadingMm2Info = useAppSelector((state) => state.queue.isLoadingMm2Info);
 
     const [lastMm2LevelInfoCode, setLastMm2LevelInfoCode] = React.useState('');
     const [timeOnLevel, setTimeOnLevel] = React.useState('');
@@ -88,7 +89,7 @@ export const CurrentLevelWidget: React.FC = (props) => {
                         <span className="level-code">{botState.activeQueueItem.levelCode}</span>
                     </Col>
                     
-                    {!!currentMm2Info 
+                    {!!currentMm2Info && !!currentMm2Info.info
                         ?
                         <Col className="level-info-container">
                             {currentMm2Info.isMakerCode
@@ -103,12 +104,16 @@ export const CurrentLevelWidget: React.FC = (props) => {
                             }
                         </Col>
                         :
-                        <Col className="level-info-container">
-                            <Spin size="large" />
-                        </Col>
+                        isLoadingMm2Info
+                            ?
+                            <Col className="level-info-container">
+                                <Spin size="large" />
+                            </Col>
+                            :
+                            undefined
                     }
 
-                    {!!currentMm2Info && currentMm2Info.isMakerCode === false
+                    {!!currentMm2Info && !!currentMm2Info.info && currentMm2Info.isMakerCode === false
                         ?
                         <Col>
                             <Row gutter={30}>
@@ -130,9 +135,13 @@ export const CurrentLevelWidget: React.FC = (props) => {
                             </Row>
                         </Col>
                         :
-                        <Col className="level-info-container">
-                            <Spin size="large" />
-                        </Col>
+                        isLoadingMm2Info
+                            ?
+                            <Col className="level-info-container">
+                                <Spin size="large" />
+                            </Col>
+                            :
+                            undefined
                     }
                 </Row>
             </Col>

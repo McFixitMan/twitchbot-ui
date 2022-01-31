@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import { Button, Col, Divider, List, Row, message } from 'antd';
+import { Button, Col, Divider, Input, List, Row, Tooltip, message } from 'antd';
 import { getChatters, permitLink } from '../../../store/modules/chatModule';
 import { useAppDispatch, useAppSelector } from '../../../types/thunk';
 
 import { RoleTag } from '../../roleTag';
 import { getDateDifferenceTimeString } from '../../../utility/dateHelper';
+import { useEscapeKey } from '../../../hooks/useEscapeKey';
 
 export const Chatters: React.FC = (props) => {
     const dispatch = useAppDispatch();
@@ -16,6 +17,11 @@ export const Chatters: React.FC = (props) => {
     const [nextRefresh, setNextRefresh] = React.useState<Date>();
     const [timeToRefresh, setTimeToRefresh] = React.useState('');
     const [requestRefresh, setRequestRefresh] = React.useState(true);
+    const [usernameFilter, setUsernameFilter] = React.useState('');
+
+    useEscapeKey(() => {
+        setUsernameFilter('');
+    });
 
     let isMounted = false;
 
@@ -77,24 +83,50 @@ export const Chatters: React.FC = (props) => {
                 <Divider style={{ fontSize: '2em' }}>{chatters.length} Chatters</Divider>
             </Col>
             <Col span={24}>
+                <Row
+                    align="middle"
+                    justify="center"
+                    style={{ marginBottom: 20 }}
+                >
+                    <Col>
+                        <Input
+                            placeholder={'Filter by username...'}
+                            value={usernameFilter}
+                            onChange={(e) => setUsernameFilter(e.currentTarget.value)}
+                            style={{ width: '100%' }}
+                        />
+                    </Col>
+                    <Col>
+                        <Button 
+                            type="default"
+                            onClick={(e) => setUsernameFilter('')}
+                        >
+                        Clear Filter
+                        </Button>
+                    </Col>
+                </Row>
+            </Col>
+            <Col span={24}>
                 <List
                     loading={isLoading}
-                    dataSource={chatters}
+                    dataSource={!!usernameFilter ? chatters.filter(x => x.username.toLowerCase().includes(usernameFilter.toLowerCase())) : chatters}
                     renderItem={(chatter) => {
                         const actionRow: Array<React.ReactNode> = [
-                            <Button 
-                                key="permit" 
-                                size="small"
-                                onClick={async () => {
-                                    const action = await dispatch(permitLink(chatter.username));
+                            <Tooltip key="permit" title={`Permit ${chatter.username} to send one link within 60 seconds`}>
+                                <Button 
+                                    size="small"
+                                    onClick={async () => {
+                                        const action = await dispatch(permitLink(chatter.username));
 
-                                    if (permitLink.rejected.match(action)) {
-                                        message.error(`Error permitting link: ${action.payload?.response?.data.message ?? action.error.message}`);
-                                    }
-                                }}
-                            >
-                                Permit
-                            </Button>,
+                                        if (permitLink.rejected.match(action)) {
+                                            message.error(`Error permitting link: ${action.payload?.response?.data.message ?? action.error.message}`);
+                                        }
+                                    }}
+                                >
+                                    Permit
+                                </Button>
+                            </Tooltip>
+                            ,
                         ];
 
                         if (chatter.isMod) {
