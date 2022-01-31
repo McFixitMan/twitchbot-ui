@@ -96,7 +96,7 @@ export const HomePage: React.FC = (props) => {
                     } else {
                         // We have a key, and therefore a group
                         return (
-                            <Col span={24}>
+                            <Col span={24} key={`${key}${index}`}>
                                 
                                 <Row
                                     align="top"
