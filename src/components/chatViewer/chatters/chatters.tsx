@@ -18,12 +18,11 @@ export const Chatters: React.FC = (props) => {
     const [timeToRefresh, setTimeToRefresh] = React.useState('');
     const [requestRefresh, setRequestRefresh] = React.useState(true);
     const [usernameFilter, setUsernameFilter] = React.useState('');
+    const [isMounted, setIsMounted] = React.useState(false);
 
     useEscapeKey(() => {
         setUsernameFilter('');
     });
-
-    let isMounted = false;
 
     const loadChattersAsync = async(): Promise<void> => {
         const action = await dispatch(getChatters());
@@ -32,16 +31,16 @@ export const Chatters: React.FC = (props) => {
             message.error(`Error loading chatters: ${action.payload?.response?.data.message ?? action.error.message}`);
         } else {
             const now = new Date();
-            now.setTime(now.getTime() + (1000 * 120));
+            now.setTime(now.getTime() + (1000 * 60));
             setNextRefresh(now);
         }
     };
 
     React.useEffect(() => {
-        isMounted = true;
+        setIsMounted(true);
 
         return () => {
-            isMounted = false;
+            setIsMounted(false);
         };
     }, []);
 

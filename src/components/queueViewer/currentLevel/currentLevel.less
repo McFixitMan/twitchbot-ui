@@ -16,6 +16,10 @@
 
     .current-level-action {
         margin: 5px;
+
+        &.view-level {
+            margin: 10px 5px;
+        }
     }
 
     .username {
@@ -29,4 +33,22 @@
         font-weight: lighter;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
+    
+}
+
+.level-viewer-modal {
+    &.ant-modal {
+        width: 100% !important;
+        height: 88% !important;
+    }
+
+    .ant-modal-content, .ant-modal-body {
+        height: 100%;
+    }
+    
+}
+
+.overflow-auto {
+    overflow: none;
 }
