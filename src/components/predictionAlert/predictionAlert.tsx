@@ -115,7 +115,6 @@ export const PredictionAlert: React.FC = (props) => {
                     <Button 
                         size="small" 
                         type="ghost" 
-                        danger={true}
                         style={{ minWidth: '100px' }}
                         onClick={async () => {
                             const action = await dispatch(cancelPrediction());

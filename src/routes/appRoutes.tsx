@@ -1,12 +1,14 @@
 import * as React from 'react';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { HomeOutlined, MessageOutlined, OrderedListOutlined, PercentageOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { HomeOutlined, MessageOutlined, OrderedListOutlined, PercentageOutlined, PlayCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { ChatPage } from './chatPage';
 import { CurrentLevelWidgetOverlay } from './overlayPage/currentLevelWidgetOverlay';
 import { HomePage } from './homePage';
+import { PredictionAlert } from '../components/predictionAlert';
+import { PredictionWidgetOverlay } from './overlayPage/predictionWidgetOverlay';
 import { QueueInfoPage } from './queueInfoPage';
 import { QueueRecordWidgetOverlay } from './overlayPage/queueRecordWidgetOverlay';
 import { connectSocket } from '../store/modules/socketModule';
@@ -69,6 +71,13 @@ export const routes: {[key: string]: AppRoute} = {
         icon: <PercentageOutlined />,
         groupName: 'Overlays',
     }),
+    predictionOverlay: new AppRoute({
+        title: 'Prediction Overlay',
+        path: '/prediction-overlay',
+        component: <PredictionWidgetOverlay />,
+        icon: <QuestionCircleOutlined />,
+        groupName: 'Overlays',
+    }),
 };
 
 export const AppRoutes: React.FC = (props) => {
@@ -85,6 +94,7 @@ export const AppRoutes: React.FC = (props) => {
                 <Routes>
                     {Object.keys(routes).map((key) => {
                         return (
+                            
                             <Route
                                 key={routes[key].path}
                                 path={routes[key].path}

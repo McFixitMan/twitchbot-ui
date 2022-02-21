@@ -2,6 +2,7 @@ import './app.less';
 
 import { AppDrawer } from './components/appDrawer';
 import { AppHeader } from './components/appHeader';
+import { AppLayout } from './appLayout';
 import { AppRoutes } from './routes';
 import { BrowserRouter } from 'react-router-dom';
 import { PredictionAlert } from './components/predictionAlert';
@@ -13,36 +14,13 @@ export const store = configureStore();
 
 const App: React.FC = (props) => {
 
-
-
     return (
         <div className="App">
             <Provider
                 store={store}
             >
                 <BrowserRouter>
-                    <div 
-                        className="core-layout__viewport main-content"
-                    >
-                        <div className="layout-main">
-                            <div className="layout-header">
-                                <AppHeader />
-                            </div>
-
-                            
-
-                            <div className="layout-routes">
-                                <PredictionAlert />
-                                <AppRoutes />
-                            </div>
-
-                            {/* <div className="layout-footer">
-                            <Footer />
-                        </div> */}
-                        </div>
-
-                        <AppDrawer />
-                    </div>
+                    <AppLayout />
                 </BrowserRouter>
             </Provider>
             
