@@ -4,6 +4,7 @@ import { AppDrawer } from './components/appDrawer';
 import { AppHeader } from './components/appHeader';
 import { AppRoutes } from './routes';
 import { BrowserRouter } from 'react-router-dom';
+import { PredictionAlert } from './components/predictionAlert';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { configureStore } from './store/createStore';
@@ -11,6 +12,8 @@ import { configureStore } from './store/createStore';
 export const store = configureStore();
 
 const App: React.FC = (props) => {
+
+
 
     return (
         <div className="App">
@@ -26,7 +29,10 @@ const App: React.FC = (props) => {
                                 <AppHeader />
                             </div>
 
+                            
+
                             <div className="layout-routes">
+                                <PredictionAlert />
                                 <AppRoutes />
                             </div>
 

@@ -7,6 +7,7 @@ import { getCurrentQueueItems, setCurrentLevel } from '../../../store/modules/qu
 import { useAppDispatch, useAppSelector } from '../../../types/thunk';
 
 import { RoleTag } from '../../roleTag';
+import { activateLevelViewer } from '../../../store/modules/levelViewerModule';
 
 export const CurrentQueue: React.FC = (props) => {
     const dispatch = useAppDispatch();
@@ -161,6 +162,22 @@ export const CurrentQueue: React.FC = (props) => {
                                             danger={true}
                                         >
                                                 Remove
+                                        </Button>
+                                    </Tooltip>
+                                </Col>
+
+                                <Col span={24}>
+                                    <Tooltip
+                                        key={`${queueItem.id}-view-level`}
+                                        title={`View the level in course viewer`}
+                                    >
+                                        <Button
+                                            className="current-level-action view-level"
+                                            type="primary"
+                                            size="large"
+                                            onClick={() => dispatch(activateLevelViewer(queueItem.levelCode))}
+                                        >
+                                            View Level
                                         </Button>
                                     </Tooltip>
                                 </Col>

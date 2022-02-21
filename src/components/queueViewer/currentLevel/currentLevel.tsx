@@ -2,14 +2,14 @@ import './currentLevel.less';
 
 import * as React from 'react';
 
-import { Avatar, Button, Card, Col, Empty, Modal, Popover, Row, Spin, Tooltip, message } from 'antd';
+import { Avatar, Button, Card, Col, Empty, Popover, Row, Spin, Tooltip, message } from 'antd';
 import { DeleteOutlined, FlagOutlined, FrownOutlined } from '@ant-design/icons';
 import { getBotState, getMm2LevelInfoByCode, getMm2UserInfoByCode, loseCurrentLevel, reQueueCurrentLevel, removeCurrentLevel, unselectCurrentLevel, winCurrentLevel } from '../../../store/modules/queueModule';
 import { useAppDispatch, useAppSelector } from '../../../types/thunk';
 
-import { LevelViewer } from '../../levelViewer';
 import { Mm2ItemInfo } from '../mm2Info';
 import { RoleTag } from '../../roleTag';
+import { activateLevelViewer } from '../../../store/modules/levelViewerModule';
 import { getApiErrorMessage } from '../../../utility/api';
 import { getDateDifferenceTimeString } from '../../../utility/dateHelper';
 
@@ -22,7 +22,6 @@ export const CurrentLevel: React.FC = (props) => {
 
     const [lastMm2LevelInfoCode, setLastMm2LevelInfoCode] = React.useState('');
     const [timeOnLevel, setTimeOnLevel] = React.useState('');
-    const [isLevelViewerActive, setIsLevelViewerActive] = React.useState(false);
 
     const loadBotState = async (): Promise<void> => {
         const action = await dispatch(getBotState());
@@ -352,7 +351,7 @@ export const CurrentLevel: React.FC = (props) => {
                                                         }
                                                     }}
                                                 >
-                                                            Remove
+                                                    Remove
                                                 </Button>
                                             </Tooltip>
                                                     
@@ -372,31 +371,22 @@ export const CurrentLevel: React.FC = (props) => {
                         </Col>
 
                         <Col span={24}>
-                            <Button
-                                onClick={() => setIsLevelViewerActive(true)}
-                                size="large"
-                                type="primary"
-                                className="current-level-action view-level"
+                            <Tooltip
+                                title={`View the level in course viewer`}
                             >
-                                View Level
-                            </Button>
+                                <Button
+                                    className="current-level-action view-level"
+                                    type="primary"
+                                    size="large"
+                                    onClick={() => dispatch(activateLevelViewer(botState.activeQueueItem?.levelCode))}
+                                >
+                                            View Level
+                                </Button>
+                            </Tooltip>
                         </Col>
                     </Row>
                 </Col>
             </Row>
-
-            <Modal
-                visible={isLevelViewerActive}
-                onCancel={() => setIsLevelViewerActive(false)}
-                onOk={() => setIsLevelViewerActive(false)}
-                className="level-viewer-modal"
-                okButtonProps={{ style: { display: 'none' } }}
-                cancelText="Close"
-                closable={true}
-                destroyOnClose={true}
-            >
-                <LevelViewer levelCode={botState.activeQueueItem.levelCode} />
-            </Modal>
         </Card>
         
     );

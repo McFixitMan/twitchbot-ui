@@ -1,5 +1,6 @@
 import { AnyAction, Middleware } from 'redux';
 import { AppSocket, SocketEvent } from '../../utility/socket';
+import { clearPrediction, getActivePrediction } from '../modules/predictionModule';
 import { connectSocket, connectionChanged, disconnectSocket } from '../modules/socketModule';
 
 import { AppDispatch } from '../../types/thunk';
@@ -14,7 +15,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState, Ap
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const onIncomingEvent = (event: SocketEvent, ...args: Array<any>): void => {
+    const onIncomingEvent = async (event: SocketEvent, ...args: Array<any>): Promise<void> => {
         for (const arg of args) {
             for (const a of arg) {
                 handleDates(a);
@@ -22,7 +23,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState, Ap
         }
         switch (event) {
             case SocketEvent.queueChanged: {
-                store.dispatch(reloadQueueData());
+                await store.dispatch(reloadQueueData());
                 break;
             }
 
@@ -32,6 +33,18 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState, Ap
                 if (!!msg?.username && !!msg?.message) {
                     store.dispatch(addChatMessage(msg));
                 }
+                
+                break;
+            }
+
+            case SocketEvent.predictionStarted: {
+                await store.dispatch(getActivePrediction());
+
+                break;
+            }
+
+            case SocketEvent.predictionEnded: {
+                store.dispatch(clearPrediction());
                 
                 break;
             }

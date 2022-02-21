@@ -47,7 +47,7 @@ export const LevelInfo: React.FC<LevelInfoProps> = (props) => {
             >
                 <Statistic
                     title="Clear Rate"
-                    className={(parseFloat(props.mm2LevelInfo.clear_rate)) >= 0.50 ? 'easy' : 'hard'}
+                    className={(parseFloat(props.mm2LevelInfo.clear_rate)) >= 1.00 ? 'easy' : 'hard'}
                     value={`${props.mm2LevelInfo.clears} / ${props.mm2LevelInfo.attempts} (${props.mm2LevelInfo.clear_rate})`}
                 />
             </Col>
