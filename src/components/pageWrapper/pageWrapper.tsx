@@ -178,7 +178,7 @@ export const PageWrapper: React.FC<PageWrapperProps> = (props) => {
                             justify="center"
                         >
                             <Col className="header-title" style={{ margin: 10 }}>
-                                <span className="bold">McFixit</span><span className="lighter">BOT</span>
+                                <span className="bold">Twitch</span><span className="lighter">BOT</span>
                                 <span><RobotOutlined size={15} style={{ margin: '0 10px' }} /></span>
                             </Col>
                         </Row>

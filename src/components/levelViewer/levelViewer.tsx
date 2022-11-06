@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Spin } from 'antd';
 import { useAppSelector } from '../../types/thunk';
 
-const LEVEL_VIEWER_URL = 'https://www.smm2-viewer.com/courses/';
+const LEVEL_VIEWER_URL = 'https://smm2.wizul.us/smm2/level/';
 
 export const LevelViewer: React.FC = (props) => {
     const [isLoading, setIsLoading] = React.useState(false);

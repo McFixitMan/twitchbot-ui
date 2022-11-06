@@ -61,7 +61,7 @@ export const AppHeader: React.FC<AppHeaderProps> = (props) => {
                                     to=""
                                 >
                                     <Row>
-                                        <div className="header-title" style={{ flex: 0, alignSelf: 'middle', marginLeft: 10, marginRight: 10 }}><span className="bold">McFixit</span><span className="lighter">BOT</span></div>
+                                        <div className="header-title" style={{ flex: 0, alignSelf: 'middle', marginLeft: 10, marginRight: 10 }}><span className="bold">Twitch</span><span className="lighter">BOT</span></div>
                                         <div style={{ flex: 0 }} className="header-icon"><RobotOutlined size={30} /></div>
                                     </Row>
                                 </NavLink>
@@ -84,7 +84,7 @@ export const AppHeader: React.FC<AppHeaderProps> = (props) => {
                         style={{ marginRight: 25 }}
                     >
                         <Tooltip
-                            title={isConnecting ? 'Connecting to McFixitBOT server...' : isConnected ? 'Connected to McFixitBOT server' : 'Disconnected from McFixitBOT server'}
+                            title={isConnecting ? 'Connecting to TwitchBOT server...' : isConnected ? 'Connected to TwitchBOT server' : 'Disconnected from TwitchBOT server'}
                         >
                             {isConnecting
                                 ? <span className="socket-state"><LoadingOutlined /> <span className="socket-state-text">Connecting...</span></span>
