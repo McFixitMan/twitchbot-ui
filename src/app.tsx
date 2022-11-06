@@ -1,11 +1,7 @@
 import './app.less';
 
-import { AppDrawer } from './components/appDrawer';
-import { AppHeader } from './components/appHeader';
 import { AppLayout } from './appLayout';
-import { AppRoutes } from './routes';
 import { BrowserRouter } from 'react-router-dom';
-import { PredictionAlert } from './components/predictionAlert';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { configureStore } from './store/createStore';
