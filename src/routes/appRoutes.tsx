@@ -7,7 +7,6 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { ChatPage } from './chatPage';
 import { CurrentLevelWidgetOverlay } from './overlayPage/currentLevelWidgetOverlay';
 import { HomePage } from './homePage';
-import { PredictionAlert } from '../components/predictionAlert';
 import { PredictionWidgetOverlay } from './overlayPage/predictionWidgetOverlay';
 import { QueueInfoPage } from './queueInfoPage';
 import { QueueRecordWidgetOverlay } from './overlayPage/queueRecordWidgetOverlay';
